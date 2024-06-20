@@ -23,7 +23,7 @@ public class AccountDto {
                 .userId(account.getAccountUser().getId())
                 .accountNumber(account.getAccountNumber())
                 .registeredAt(account.getRegisteredAt())
-                .unRegisteredAt(account.getNuRegisteredAt())
+                .unRegisteredAt(account.getUnRegisteredAt())
                 .build();
     }
 }
