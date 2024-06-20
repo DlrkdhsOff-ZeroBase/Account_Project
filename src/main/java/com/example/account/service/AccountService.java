@@ -62,4 +62,10 @@ public class AccountService {
         }
         return accountRepository.findById(id).get();
     }
+
+    @Transactional
+    public AccountDto deleteAccount(Long userId, String accountNumber) {
+        return null;
+    }
+
 }
