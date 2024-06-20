@@ -30,7 +30,7 @@ public class Account {
     private Long balance;
 
     private LocalDateTime registeredAt;
-    private LocalDateTime nuRegisteredAt;
+    private LocalDateTime unRegisteredAt;
 
     @CreatedDate
     private LocalDateTime createdAt;
