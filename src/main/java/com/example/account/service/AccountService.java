@@ -89,7 +89,7 @@ public class AccountService {
         }
 
         if (account.getAccountStatus() == AccountStatus.UNREGISTERED) {
-            throw new AccountException(ErrorCode.USER_ACCOUNT_UN_MATCH);
+            throw new AccountException(ErrorCode.ACCOUNT_ALREADY_UNREGISTERED);
         }
 
         if (account.getBalance() > 0) {
