@@ -14,14 +14,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Account extends BaseEntity{
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "accountNumber")})
+public class Account extends BaseEntity {
 
     @ManyToOne
     private AccountUser accountUser;
+
+    @Column(unique = true) // 이 부분을 추가합니다.
     private String accountNumber;
 
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
+
     private Long balance;
 
     private LocalDateTime registeredAt;
