@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.example.account.type.AccountStatus.IN_USE;
 import static com.example.account.type.ErrorCode.*;
+import org.apache.commons.lang3.RandomStringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +38,20 @@ public class AccountService {
 
         validateCreateAccount(accountUser);
 
-        String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
-                .map(account -> (Integer.parseInt(account.getAccountNumber())) + 1 + "")
-                .orElse("1000000000");
+        String newAccountNumber;
+        do {
+            newAccountNumber = RandomStringUtils.randomNumeric(10);
+        } while (accountRepository.existsByAccountNumber(newAccountNumber));
 
-        return AccountDto.fromEntity(
-                accountRepository.save(Account.builder()
-                                .accountUser(accountUser)
-                                .accountStatus(IN_USE)
-                                .accountNumber(newAccountNumber)
-                                .balance(initialBalance)
-                                .registeredAt(LocalDateTime.now())
-                                .build())
-        );
+        Account account = Account.builder()
+                .accountUser(accountUser)
+                .accountStatus(IN_USE)
+                .accountNumber(newAccountNumber)
+                .balance(initialBalance)
+                .registeredAt(LocalDateTime.now())
+                .build();
+
+        return AccountDto.fromEntity(accountRepository.save(account));
     }
 
     private void validateCreateAccount(AccountUser accountUser) {
